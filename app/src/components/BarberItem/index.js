@@ -1,4 +1,5 @@
-import React from 'react';
+import React, {useCallback} from 'react';
+import {useNavigation} from '@react-navigation/native';
 
 import {Stars} from '../../components/Stars';
 
@@ -12,8 +13,19 @@ import {
 } from './styles';
 
 function BarberItem({data}) {
+  const {navigate} = useNavigation();
+
+  const handleClick = useCallback(() => {
+    navigate('Barber', {
+      id: data.id,
+      avatar: data.avatar,
+      name: data.name,
+      stars: data.stars,
+    });
+  }, [navigate, data]);
+
   return (
-    <Area>
+    <Area onPress={handleClick}>
       <Avatar source={{uri: data.avatar}} />
 
       <InfoArea>

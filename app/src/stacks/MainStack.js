@@ -5,6 +5,7 @@ import {Preload} from '../screens/Preload';
 import {SignIn} from '../screens/SignIn';
 import {SignUp} from '../screens/SignUp';
 import {MainTab} from '../screens/MainTab';
+import {Barber} from '../screens/Barber';
 
 const {Navigator, Screen} = createStackNavigator();
 
@@ -19,6 +20,7 @@ function MainStack() {
       <Screen name="SignIn" component={SignIn} />
       <Screen name="SignUp" component={SignUp} />
       <Screen name="MainTab" component={MainTab} />
+      <Screen name="Barber" component={Barber} />
     </Navigator>
   );
 }

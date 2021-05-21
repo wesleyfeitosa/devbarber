@@ -45,6 +45,22 @@ const api = {
     return json;
   },
 
+  logout: async function () {
+    const token = await AsyncStorage.getItem('@DevBarber:token');
+
+    const response = await fetch(`${BASE_API}/auth/logout`, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-type': 'application/json',
+      },
+      body: JSON.stringify({token}),
+    });
+
+    const json = await response.json();
+    return json;
+  },
+
   getBarbers: async function (latitude = null, longitude = null, address = '') {
     const token = await AsyncStorage.getItem('@DevBarber:token');
 
@@ -59,6 +75,16 @@ const api = {
     );
 
     const json = await response.json();
+    return json;
+  },
+
+  getBarber: async function (id) {
+    const token = await AsyncStorage.getItem('@DevBarber:token');
+
+    const response = await fetch(`${BASE_API}/barber/${id}?token=${token}`);
+
+    const json = await response.json();
+    console.log('BARBEIRO: ', json);
     return json;
   },
 };
