@@ -3,6 +3,7 @@
 import React, {useState, useEffect, useCallback} from 'react';
 import Swipper from 'react-native-swiper';
 import {useNavigation, useRoute} from '@react-navigation/native';
+import reactotron from 'reactotron-react-native';
 
 import {api} from '../../services/api';
 import {Stars} from '../../components/Stars';
@@ -62,10 +63,10 @@ function Barber() {
     async function getBarberInfo() {
       try {
         setLoading(true);
-        const json = await api.getBarber(userInfo.id);
+        const response = await api.getBarber(userInfo.id);
 
-        setUserInfo(json.data);
-        setFavorited(json.data.favorited);
+        setUserInfo(response.data);
+        setFavorited(response.data.favorited);
         setLoading(false);
       } catch (err) {
         setLoading(false);
@@ -85,8 +86,8 @@ function Barber() {
     setFavorited(state => !state);
   }, []);
 
-  const handleServiceChoose = useCallback(indexService => {
-    setSelectedService(indexService);
+  const handleServiceChoose = useCallback(service => {
+    setSelectedService(service);
     setShowModal(true);
   }, []);
 
@@ -139,11 +140,11 @@ function Barber() {
                 <ServiceItem key={index}>
                   <ServiceInfo>
                     <ServiceName>{service.name}</ServiceName>
-                    <ServicePrice>R$ {service.price}</ServicePrice>
+                    <ServicePrice>R$ {service.price.toFixed(2)}</ServicePrice>
                   </ServiceInfo>
 
                   <ServiceChooseButton
-                    onPress={() => handleServiceChoose(index)}>
+                    onPress={() => handleServiceChoose(service)}>
                     <ServiceChooseButtonText>Agendar</ServiceChooseButtonText>
                   </ServiceChooseButton>
                 </ServiceItem>

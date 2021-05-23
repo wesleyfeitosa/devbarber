@@ -64,12 +64,6 @@ const api = {
   getBarbers: async function (latitude = null, longitude = null, address = '') {
     const token = await AsyncStorage.getItem('@DevBarber:token');
 
-    console.log('======================================');
-    console.log('latitude', latitude);
-    console.log('longitude', longitude);
-    console.log('address', address);
-    console.log('--------------------------------------');
-
     const response = await fetch(
       `${BASE_API}/barbers?token=${token}&lat=${latitude}&lng=${longitude}&address=${address}`,
     );
@@ -84,7 +78,37 @@ const api = {
     const response = await fetch(`${BASE_API}/barber/${id}?token=${token}`);
 
     const json = await response.json();
-    console.log('BARBEIRO: ', json);
+    return json;
+  },
+
+  setAppointment: async function (
+    userId,
+    service,
+    selectedDay,
+    selectedHour,
+    selectedMonth,
+    selectedYear,
+  ) {
+    const token = await AsyncStorage.getItem('@DevBarber:token');
+
+    const response = await fetch(`${BASE_API}/user/appointment`, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-type': 'application/json',
+      },
+      body: JSON.stringify({
+        token,
+        id: userId,
+        service,
+        day: selectedDay,
+        hour: selectedHour,
+        month: selectedMonth,
+        year: selectedYear,
+      }),
+    });
+
+    const json = await response.json();
     return json;
   },
 };
