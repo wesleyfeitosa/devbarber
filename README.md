@@ -26,7 +26,7 @@ This project was developed with the following technologies:
 
 - [React Native](https://reactnative.dev/)
 - [Redux](https://redux.js.org/)
-- [react Navigation](https://reactnavigation.org/)
+- [React Navigation](https://reactnavigation.org/)
 - [Styled-Components](https://styled-components.com/)
 
 ## 💻 Project
